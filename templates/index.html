@@ -3,14 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>App Gestor de Tarefas</title>
+    <title>Task Manager App</title>
 
-    <!--Folha de estilo CSS-->
     <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
-    <!--Bootstrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sketchy/bootstrap.min.css"
         integrity="sha384-RxqHG2ilm4r6aFRpGmBbGTjsqwfqHOKy1ArsMhHusnRO47jcGqpIQqlQK/kmGy9R" crossorigin="anonymous">
-    <!--Fonte Google Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -21,29 +18,25 @@
 
 <body>
     <main class="container p-4">
-        <h1 class="display-4 text-center mt-4 titulo">App de Gestão de Tarefas</h1>
+        <h1 class="display-4 text-center mt-4 titulo">Task Manager App</h1>
         <div class="row">
-            <div class="col-md-4 offset-md-4 my-auto"> <!--Este div vai ocupar 4
-            colunas do espaço (centrado)-->
-                <div class="card"> <!--Criação do objeto card-->
+            <div class="col-md-4 offset-md-4 my-auto">
+                <div class="card">
                     <div class="card-header">
-                        <form action="/criar_tarefa" method="post">
-                            <!-- Separamos o input do botão colocando o input neste form-group para que os elementos não estejam colados e haja separação entre eles -->
+                        <form action="/create_task" method="post">
                             <div class="form-group">
-                                <input type="text" name="conteudo_tarefa" placeholder="Tarefa" class="form-control"
+                                <input type="text" name="task_content" placeholder="Task" class="form-control"
                                     autofocus>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
-                            <!-- btn-block faz com que o botão ocupe toda a largura -->
+                            <button type="submit" class="btn btn-primary btn-block">Save</button>
                         </form>
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            {% for tarefa in lista_de_tarefas %}
+                            {% for task in tasks_list %}
                             <li class="list-group-item">
-                                <span
-                                    class="{% if tarefa.feita==True %} tarefa_feita {% endif %}">{{tarefa.conteudo}}</span>
-                                <a href="/tarefa_feita/{{tarefa.id}}" style="text-decoration:none">
+                                <span class="{% if task.done==True %} task_done {% endif %}">{{task.content}}</span>
+                                <a href="/task_done/{{task.id}}" style="text-decoration:none">
                                     <svg class="bi bi-check-box" width="2em" height="2em" viewBox="0 0 16 16"
                                         fill="green" xmlns="" http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
@@ -54,7 +47,7 @@
                                             01.5-.5h8a.5.5 0 000-1H3A1.5 1.5 0 001.5 3v10z" clip-rule="evenodd" />
                                     </svg>
                                 </a>
-                                <a href="/eliminar_tarefa/{{tarefa.id}}" style="text-decoration:none">
+                                <a href="/delete_task/{{task.id}}" style="text-decoration:none">
                                     <svg class="bi bi-trash" width="2em" height="2em" viewBox="0 0 16
                                     16" fill="red" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0
